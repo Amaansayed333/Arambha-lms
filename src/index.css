@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 248 250 252; /* Slate 50 */
+    --foreground: 15 23 42; /* Slate 900 */
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-900 font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading text-primary;
+  }
+}
+
+@layer utilities {
+    .glass {
+        @apply bg-white/70 backdrop-blur-lg border border-white/20 shadow-sm;
+    }
+    .text-gradient {
+        @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary-light;
+    }
+    .text-gradient-gold {
+         @apply bg-clip-text text-transparent bg-gradient-to-r from-secondary-dark via-secondary to-secondary-light;
+    }
+}
