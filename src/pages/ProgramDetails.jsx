@@ -3,10 +3,23 @@ import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, CheckCircle } from 'lucide-react';
 import Button from '../components/ui/Button';
 import { programs } from '../utils/programsData';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { db } from '../firebase/firebase';
 
 const ProgramDetails = () => {
     const { id } = useParams();
     const program = programs.find(p => p.id === parseInt(id));
+
+
+    const programToCourseMap = {
+    "Foundation 60": "c1",
+    "Full Stack Java Developer": "c2",
+    "Data Science & AI": "c3",
+    "Banking & Finance": "c4",
+    };
+
 
     if (!program) {
         return (
@@ -16,6 +29,29 @@ const ProgramDetails = () => {
             </div>
         );
     }
+
+    const { user } = useAuth();
+    const navigate = useNavigate();
+
+    const handleEnroll = async (courseCode) => {
+        const target = `/courses/${courseCode}/videos`;
+        if (!user) {
+            navigate('/signup', { state: { from: target } });
+            return;
+        }
+
+        try {
+            // Add courseCode to user's enrolledCourses using arrayUnion
+            const userRef = doc(db, 'users', user.uid);
+            await updateDoc(userRef, {
+                enrolledCourses: arrayUnion(courseCode),
+            });
+        } catch (err) {
+            console.error('Failed to update enrolledCourses:', err);
+        }
+
+        navigate(target);
+    };
 
     return (
         <div className="pt-24 pb-20 bg-slate-50 min-h-screen">
@@ -69,7 +105,13 @@ const ProgramDetails = () => {
                                         <span className="font-semibold text-gray-900">Online / Offline</span>
                                     </li>
                                 </ul>
-                                <Button className="w-full mb-3" size="lg">Enroll Now</Button>
+                                                                <Button
+                                                                        className="w-full mb-3"
+                                                                        size="lg"
+                                                                        onClick={() => handleEnroll(programToCourseMap[program.title])}
+                                                                >
+                                                                        Enroll Now
+                                                                </Button>
                                 <Button variant="outline" className="w-full">Download Syllabus</Button>
                             </div>
                         </div>

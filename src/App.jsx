@@ -12,6 +12,9 @@ import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import ProgramDetails from './pages/ProgramDetails';
 import CertificateVerify from './pages/CertificateVerify';
+import CourseVideos from './pages/CourseVideos';
+import AdminLogin from './pages/AdminLogin';
+import AdminUpload from './pages/AdminUpload';
 
 // Scroll to top on route change
 function ScrollToTop() {
@@ -42,6 +45,9 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/programs/:id" element={<ProgramDetails />} />
             <Route path="/verify" element={<CertificateVerify />} />
+            <Route path="/courses/:courseCode/videos" element={<CourseVideos />} />
+            <Route path="/admin" element={<AdminLogin />} />
+            <Route path="/admin/upload" element={<AdminUpload />} />
           </Routes>
         </main>
         <Footer />

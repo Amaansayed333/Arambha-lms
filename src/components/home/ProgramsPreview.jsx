@@ -1,32 +1,38 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ProgramCard from '../programs/ProgramCard';
+import ProgramCard2 from '../programs/ProgramCard2';
 import Button from '../ui/Button';
 import { programs } from '../../utils/programsData';
 import { ArrowRight } from 'lucide-react';
 
 const ProgramsPreview = () => {
-    // Show top 3 programs
     const showcasePrograms = programs.slice(0, 3);
 
     return (
-        <section className="py-20 bg-slate-50">
+        <section className="py-20 bg-gradient-to-b from-blue-50 via-blue-100 to-blue-50">
             <div className="container mx-auto px-4">
-                <div className="text-center mb-12">
-                    <h2 className="text-3xl lg:text-4xl font-heading font-bold text-primary mb-4">
+
+                {/* Header */}
+                <div className="text-center mb-14">
+                    <h2 className="text-3xl lg:text-4xl font-heading font-bold text-slate-900 mb-4">
                         Popular Programs
                     </h2>
-                    <p className="text-gray-600 max-w-2xl mx-auto">
-                        Join thousands of students learning in-demand skills.
+                    <p className="text-slate-600 max-w-2xl mx-auto">
+                        Carefully designed programs to take you from learning to career-ready.
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                {/* ONE CARD PER ROW */}
+                <div className="flex flex-col space-y-6 mb-12">
                     {showcasePrograms.map((program) => (
-                        <ProgramCard key={program.id} program={program} />
+                        <ProgramCard2
+                            key={program.id}
+                            program={program}
+                        />
                     ))}
                 </div>
 
+                {/* CTA */}
                 <div className="text-center">
                     <Link to="/programs">
                         <Button variant="outline" size="lg" className="gap-2">
@@ -34,6 +40,7 @@ const ProgramsPreview = () => {
                         </Button>
                     </Link>
                 </div>
+
             </div>
         </section>
     );

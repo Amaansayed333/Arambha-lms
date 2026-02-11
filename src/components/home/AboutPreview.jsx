@@ -11,7 +11,7 @@ const AboutPreview = () => {
                     <div className="w-full lg:w-1/2 relative">
                         <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                             <img
-                                src="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                                src="/src/assets/below_pic.png"
                                 alt="Team meeting"
                                 className="w-full h-full object-cover"
                             />
