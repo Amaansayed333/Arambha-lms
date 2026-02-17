@@ -4,10 +4,13 @@ import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '../../assets/logo.png';
 import { useAuth } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+  const [showDropdown, setShowDropdown] = useState(false);
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -71,26 +74,63 @@ const Navbar = () => {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                className="text-gray-700 hover:text-primary font-medium transition-colors"
-              >
-                {link.name}
-              </Link>
-            ))}
-            <Link to="/admin">
+  <Link
+    key={link.name}
+    to={link.path}
+    className="relative text-gray-700 font-medium transition-colors hover:text-primary group"
+  >
+    {link.name}
+
+    {/* Animated Underline */}
+    <span
+      className="
+        absolute
+        left-0
+        -bottom-1
+        w-0
+        h-[2px]
+        bg-blue-800
+        transition-all
+        duration-300
+        group-hover:w-full
+      "
+    ></span>
+  </Link>
+))}
+
+            {/* <Link to="/admin">
               <button className="text-gray-700 hover:text-primary font-medium transition-colors mr-4">
                 Admin
               </button>
-            </Link>
+            </Link> */}
             {user ? (
-              <button
-                onClick={() => signOut()}
-                className="bg-red-500 text-white px-4 py-2 rounded-full font-medium hover:bg-red-600 shadow-md"
-              >
-                Logout
-              </button>
+              <div className="relative">
+                <button
+                  onClick={() => setShowDropdown((s) => !s)}
+                  className="w-10 h-10 rounded-full bg-blue-950 text-white flex items-center justify-center font-semibold"
+                  title={user.email}
+                >
+                  {user.displayName ? user.displayName.charAt(0).toUpperCase() : user.email.charAt(0).toUpperCase()}
+                </button>
+
+                {showDropdown && (
+                  <div className="absolute right-0 mt-2 w-40 bg-white border rounded-md shadow-lg z-50">
+                    <button
+                      onClick={async () => {
+                        try {
+                          await signOut();
+                          navigate('/login');
+                        } catch (err) {
+                          console.error('Logout failed', err);
+                        }
+                      }}
+                      className="w-full text-left px-4 py-2 hover:bg-gray-50"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
             ) : (
               <Link to="/login">
                 <button className="bg-primary text-white px-5 py-2 rounded-full font-medium hover:bg-primary-light shadow-md">
@@ -134,7 +174,7 @@ const Navbar = () => {
               ))}
               {user ? (
                 <button
-                  onClick={() => { setIsOpen(false); signOut(); }}
+                  onClick={async () => { setIsOpen(false); try { await signOut(); navigate('/login'); } catch(err){ console.error(err); } }}
                   className="w-full mt-4 bg-red-500 text-white px-5 py-3 rounded-md font-medium shadow-sm"
                 >
                   Logout

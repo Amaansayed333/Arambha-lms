@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import Button from '../components/ui/Button';
+//import logo from '../assets/logo.png';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase/firebase';
+
 
 const Login = () => {
     const navigate = useNavigate();
@@ -28,9 +29,9 @@ const Login = () => {
             const token = await userCred.user.getIdToken();
             localStorage.setItem('firebaseToken', token);
 
-            // 🔥 Redirect after login — return to intended path if present
-            const returnTo = location.state?.from || '/programs';
+            const returnTo = location.state?.from || '/dashboard';
             navigate(returnTo);
+
         } catch (err) {
             setError(err.message || 'Login failed');
         } finally {
@@ -39,58 +40,139 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-slate-50 py-20 px-4">
-            <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-                <div className="text-center mb-8">
-                    <h2 className="text-3xl font-bold text-primary font-heading">Welcome Back</h2>
-                    <p className="text-gray-500 mt-2">Sign in to your student dashboard</p>
-                </div>
+  <div className="relative min-h-screen overflow-hidden">
 
-                {error && (
-                    <div className="mb-4 bg-red-50 text-red-600 p-3 rounded-lg text-sm text-center">
-                        {error}
-                    </div>
-                )}
+    {/* 🔵 Full Background Image */}
+    <div
+      className="absolute inset-0 bg-cover bg-center"
+      style={{ backgroundImage: "url('/services.png')" }}
+    ></div>
 
-                <form className="space-y-6" onSubmit={handleLogin}>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
-                            placeholder="you@example.com"
-                            required
-                        />
-                    </div>
+    {/* Dark Overlay */}
+    <div className="absolute inset-0 bg-black/50"></div>
 
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
-                            placeholder="••••••••"
-                            required
-                        />
-                    </div>
+    {/* 🔵 Diagonal Image Background (LEFT SIDE) */}
+    <div
+      className="absolute inset-0 z-0 bg-cover bg-center"
+      style={{
+        backgroundImage: "url('/login_image.png')",
+        clipPath: "polygon(0 0, 60% 0, 40% 100%, 0% 100%)"
+      }}
+    ></div>
 
-                    <Button className="w-full mt-2" size="lg" disabled={loading}>
-                        {loading ? 'Signing in...' : 'Sign In'}
-                    </Button>
-                </form>
+    {/* Diagonal Overlay */}
+    <div
+      className="absolute inset-0 bg-[#191970]/50 z-0"
+      style={{
+        clipPath: "polygon(0 0, 60% 0, 40% 100%, 0% 100%)"
+      }}
+    ></div>
 
-                <div className="mt-8 text-center text-sm text-gray-500">
-                    Don't have an account?{' '}
-                    <Link to="/signup" className="text-primary font-semibold hover:underline">
-                        Register now
-                    </Link>
-                </div>
-            </div>
+    {/* CONTENT */}
+    <div className="relative z-20 min-h-screen flex items-center justify-center px-4">
+
+      <div className="relative flex items-center justify-center">
+
+        {/* BACK BIG CARD (Logo Card) */}
+        <div
+          className="
+            relative
+            w-[420px]
+            h-[500px]
+            bg-white
+            rounded-3xl
+            shadow-2xl
+            border-2
+            border-blue-950
+            flex
+            items-center
+            justify-center
+            z-0
+            left-[-220px]
+          "
+        >
+          <img
+            src="/logo.png"
+            alt="Arambha Logo"
+            className="w-72 object-contain"
+          />
         </div>
-    );
+
+        {/* FRONT LOGIN CARD */}
+        <div
+          className="
+            absolute
+            right-[-60px]
+            w-[380px]
+            bg-white
+            rounded-2xl
+            shadow-2xl
+            p-8
+            border-2
+            border-blue-950
+            z-30
+          "
+        >
+          <h2 className="text-2xl font-bold text-blue-950 text-center mb-2">
+            Welcome Back
+          </h2>
+
+          <p className="text-blue-800 text-sm text-center mb-6">
+            Sign in to your student dashboard
+          </p>
+
+          {error && (
+            <div className="mb-4 bg-red-50 text-red-600 p-3 rounded-lg text-sm text-center">
+              {error}
+            </div>
+          )}
+
+          <form className="space-y-4" onSubmit={handleLogin}>
+            <input
+              type="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-3 rounded-lg bg-blue-50 border border-blue-200 text-blue-900 text-sm focus:ring-2 focus:ring-blue-400 outline-none"
+              required
+            />
+
+            <input
+              type="password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-3 rounded-lg bg-blue-50 border border-blue-200 text-blue-900 text-sm focus:ring-2 focus:ring-blue-400 outline-none"
+              required
+            />
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-3 rounded-lg bg-blue-950 text-white font-semibold text-sm hover:bg-blue-800 transition"
+            >
+              {loading ? "Signing in..." : "Sign In →"}
+            </button>
+          </form>
+
+          <div className="mt-6 text-center text-sm text-blue-800">
+            Don’t have an account?{" "}
+            <Link
+              to="/signup"
+              className="text-blue-950 font-semibold underline"
+            >
+              Register now
+            </Link>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+);
+
+
+
 };
 
 export default Login;

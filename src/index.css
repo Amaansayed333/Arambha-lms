@@ -30,3 +30,7 @@
          @apply bg-clip-text text-transparent bg-gradient-to-r from-secondary-dark via-secondary to-secondary-light;
     }
 }
+
+.clip-diagonal {
+  clip-path: polygon(0 0, 55% 0, 45% 100%, 0% 100%);
+}

@@ -1,35 +1,36 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { onAuthStateChanged, signOut as firebaseSignOut } from 'firebase/auth';
 import { auth } from '../firebase/firebase';
+import { onAuthStateChanged, signOut as firebaseSignOut } from 'firebase/auth';
 
-const AuthContext = createContext({ user: null, loading: true });
-
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (u) => {
-      setUser(u || null);
-      setLoading(false);
-    });
-
-    return () => unsub();
-  }, []);
-
-  const signOut = async () => {
-    await firebaseSignOut(auth);
-    localStorage.removeItem('firebaseToken');
-    setUser(null);
-  };
-
-  return (
-    <AuthContext.Provider value={{ user, loading, signOut }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
+const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
-export default AuthContext;
+export const AuthProvider = ({ children }) => {
+    const [currentUser, setCurrentUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            setCurrentUser(user);
+            setLoading(false);
+        });
+
+        return unsubscribe;
+    }, []);
+
+    const signOut = async () => {
+        try {
+            await firebaseSignOut(auth);
+        } catch (err) {
+            console.error('Sign out failed', err);
+            throw err;
+        }
+    };
+
+    return (
+        <AuthContext.Provider value={{ user: currentUser, loading, signOut }}>
+            {children}
+        </AuthContext.Provider>
+    );
+};

@@ -1,83 +1,141 @@
-import React from 'react';
-import { PlayCircle, Clock, Award, BookOpen } from 'lucide-react';
-import Button from '../components/ui/Button';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase/firebase';
+import { useAuth } from '../context/AuthContext';
 
 const Dashboard = () => {
-    const myCourses = [
-        {
-            title: "Foundation 60: Soft Skills",
-            progress: 75,
-            lastPlayed: "Module 4: Public Speaking",
-            image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-        },
-        {
-            title: "Full Stack Java",
-            progress: 30,
-            lastPlayed: "Module 2: Java Basics",
-            image: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+    const navigate = useNavigate();
+    const { user, loading: authLoading, signOut } = useAuth();
+
+    const [userData, setUserData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                if (authLoading) return;
+
+                if (!user) {
+                    navigate('/login');
+                    return;
+                }
+
+                const userDocRef = doc(db, 'users', user.uid);
+                const userSnap = await getDoc(userDocRef);
+
+                if (userSnap.exists()) {
+                    setUserData(userSnap.data());
+                } else {
+                    setError('User data not found.');
+                }
+
+            } catch (err) {
+                console.error(err);
+                setError('Failed to fetch user data');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUserData();
+    }, [navigate, user, authLoading]);
+
+    const handleLogout = async () => {
+        try {
+            await signOut();
+            localStorage.removeItem('firebaseToken');
+            navigate('/login');
+        } catch (err) {
+            console.error('Logout failed', err);
         }
-    ];
+    };
+
+    if (loading || authLoading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-blue-100">
+                <p className="text-blue-900 font-semibold">Loading dashboard...</p>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-blue-100">
+                <p className="text-red-600">{error}</p>
+            </div>
+        );
+    }
 
     return (
-        <div className="pt-24 pb-20 bg-slate-50 min-h-screen">
-            <div className="container mx-auto px-4">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-8">
+        <div className="min-h-screen bg-gradient-to-b from-blue-300 via-blue-200 to-blue-300 py-16 px-4">
+
+            <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-2xl border-2 border-blue-950 p-8">
+
+                <h1 className="text-3xl font-bold text-blue-950 mb-6">
+                    Student Dashboard
+                </h1>
+
+                {/* USER DETAILS */}
+                <div className="space-y-4 text-blue-900">
+
                     <div>
-                        <h1 className="text-3xl font-heading font-bold text-primary">Hello, Student! 👋</h1>
-                        <p className="text-gray-500">Welcome back to your learning dashboard.</p>
+                        <span className="font-semibold">Full Name: </span>
+                        {userData?.firstName} {userData?.lastName}
                     </div>
-                    <div className="mt-4 md:mt-0">
-                        <span className="bg-white px-4 py-2 rounded-full border border-gray-200 text-sm font-medium">📅 Today, Oct 24</span>
+
+                    <div>
+                        <span className="font-semibold">Email: </span>
+                        {userData?.email}
                     </div>
+
+                    <div>
+                        <span className="font-semibold">Phone: </span>
+                        {userData?.phone || 'Not Provided'}
+                    </div>
+
+                    <div>
+                        <span className="font-semibold">Role: </span>
+                        {userData?.role}
+                    </div>
+
+                    <div>
+                        <span className="font-semibold">Enrolled Courses: </span>
+                        {userData?.enrolledCourses?.length > 0 ? (
+                            <ul className="list-disc ml-6 mt-2">
+                                {userData.enrolledCourses.map((course, index) => (
+                                    <li key={index}>{course}</li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <p className="text-sm text-blue-700 mt-1">
+                                No courses enrolled yet.
+                            </p>
+                        )}
+                    </div>
+
                 </div>
 
-                {/* Stats */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                    <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
-                        <div className="bg-blue-50 p-3 rounded-xl text-primary"><BookOpen size={24} /></div>
-                        <div>
-                            <p className="text-2xl font-bold text-gray-900">2</p>
-                            <p className="text-sm text-gray-500">Active Courses</p>
-                        </div>
-                    </div>
-                    <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
-                        <div className="bg-amber-50 p-3 rounded-xl text-secondary"><Clock size={24} /></div>
-                        <div>
-                            <p className="text-2xl font-bold text-gray-900">12h</p>
-                            <p className="text-sm text-gray-500">Hours Learned</p>
-                        </div>
-                    </div>
-                    <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
-                        <div className="bg-green-50 p-3 rounded-xl text-green-600"><Award size={24} /></div>
-                        <div>
-                            <p className="text-2xl font-bold text-gray-900">0</p>
-                            <p className="text-sm text-gray-500">Certificates</p>
-                        </div>
-                    </div>
+                {/* BUTTONS */}
+                <div className="mt-8 flex gap-4">
+
+                    <button
+                        onClick={() => navigate('/programs')}
+                        className="px-6 py-2 bg-blue-950 text-white rounded-lg hover:bg-blue-800 transition"
+                    >
+                        Browse Courses
+                    </button>
+
+                    <button
+                        onClick={handleLogout}
+                        className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+                    >
+                        Logout
+                    </button>
+
                 </div>
 
-                {/* My Courses */}
-                <h2 className="text-xl font-bold text-primary mb-6">Continue Learning</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {myCourses.map((course, index) => (
-                        <div key={index} className="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm flex gap-6 hover:shadow-md transition-shadow">
-                            <img src={course.image} alt={course.title} className="w-24 h-24 rounded-xl object-cover" />
-                            <div className="flex-1 flex flex-col justify-center">
-                                <h3 className="font-bold text-primary mb-1">{course.title}</h3>
-                                <p className="text-xs text-gray-500 mb-3">Last played: {course.lastPlayed}</p>
-                                <div className="w-full bg-gray-100 rounded-full h-2 mb-2">
-                                    <div className="bg-secondary h-2 rounded-full" style={{ width: `${course.progress}%` }}></div>
-                                </div>
-                                <div className="flex justify-between items-center">
-                                    <span className="text-xs font-semibold text-gray-600">{course.progress}% Complete</span>
-                                    <button className="text-primary hover:text-primary-light flex items-center gap-1 text-sm font-medium">
-                                        <PlayCircle size={16} /> Resume
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
             </div>
         </div>
     );

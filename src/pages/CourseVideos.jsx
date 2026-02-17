@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from '../context/AuthContext';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase/firebase';
 
 const CourseVideos = () => {
   const { courseCode } = useParams();
@@ -11,22 +13,37 @@ const CourseVideos = () => {
   const { user, loading: authLoading } = useAuth();
 
   useEffect(() => {
-    if (!authLoading && !user) {
-      navigate('/signup', { state: { from: location.pathname } });
-      return;
-    }
+    const run = async () => {
+      if (authLoading) return;
 
-    fetch(`http://127.0.0.1:8000/api/videos/courses/${courseCode}/`)
-      .then(res => res.json())
-      .then(data => {
-        console.log("API RESPONSE:", data); // 🔥 keep this
+      if (!user) {
+        navigate('/login', { state: { from: location.pathname } });
+        return;
+      }
+
+      try {
+        const userRef = doc(db, 'users', user.uid);
+        const userSnap = await getDoc(userRef);
+        const enrolled = userSnap.exists() ? userSnap.data().enrolledCourses || [] : [];
+
+        // If not enrolled, redirect to programs
+        if (!enrolled.includes(courseCode)) {
+          navigate('/programs');
+          return;
+        }
+
+        const res = await fetch(`http://127.0.0.1:8000/api/videos/courses/${courseCode}/`);
+        const data = await res.json();
+        console.log("API RESPONSE:", data);
         setVideos(data.videos || []);
-        setLoading(false);
-      })
-      .catch(err => {
+      } catch (err) {
         console.error(err);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    run();
   }, [courseCode, authLoading, user, navigate, location.pathname]);
 
   if (loading) {
