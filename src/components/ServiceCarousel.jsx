@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const services = [
   {
-    image: "/services.png",
+    image: "/lms.jpeg",
     title: "LMS Platform",
     description: "Comprehensive LMS for seamless course delivery."
   },
@@ -13,7 +13,7 @@ const services = [
     description: "High-quality streaming with cloud infrastructure."
   },
   {
-    image: "/Admin_Dashboard.png",
+    image: "/admin.jpeg",
     title: "Admin Dashboard",
     description: "Powerful content & user management tools."
   },
@@ -23,7 +23,7 @@ const services = [
     description: "Real-time insights into student progress."
   },
   {
-    image: "/security.png",
+    image: "/secure.jpeg",
     title: "Secure Authentication",
     description: "Enterprise-level security & user protection."
   }

@@ -9,7 +9,7 @@ const ProgramsPreview = () => {
     const showcasePrograms = programs.slice(0, 3);
 
     return (
-        <section className="relative py-20 overflow-hidden">
+        <section className="relative py-24 overflow-hidden">
 
             {/* ===== Background Image ===== */}
             <div
@@ -19,24 +19,25 @@ const ProgramsPreview = () => {
                 }}
             />
 
-            {/* ===== Dark Overlay (same style as Hero) ===== */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
+            {/* ===== Dark Overlay ===== */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
 
             {/* ===== Content ===== */}
             <div className="container mx-auto px-4 relative z-10">
 
                 {/* Header */}
-                <div className="text-center mb-14">
-                    <h2 className="text-3xl lg:text-4xl font-heading font-bold text-sky-200 drop-shadow-lg mb-4">
+                <div className="text-center mb-16">
+                    <h2 className="text-4xl lg:text-5xl font-crimson font-semibold text-sky-200 drop-shadow-lg mb-6 tracking-wide">
                         Popular Programs
                     </h2>
-                    <p className="text-sky-100 max-w-2xl mx-auto drop-shadow-md">
-                        Carefully designed programs to take you from learning to career-ready.
+                    <p className="text-xl lg:text-2xl font-crimson text-sky-100 max-w-3xl mx-auto drop-shadow-md leading-relaxed">
+                        Carefully designed programs to take you from learning 
+                        to career-ready with confidence and real-world skills.
                     </p>
                 </div>
 
                 {/* ONE CARD PER ROW */}
-                <div className="flex flex-col space-y-6 mb-12">
+                <div className="flex flex-col space-y-8 mb-14">
                     {showcasePrograms.map((program) => (
                         <ProgramCard2
                             key={program.id}
@@ -51,7 +52,7 @@ const ProgramsPreview = () => {
                         <Button
                             variant="outline"
                             size="lg"
-                            className="gap-2 bg-white/10 backdrop-blur-sm text-white border-white/40 hover:bg-white/20"
+                            className="gap-2 bg-white/10 backdrop-blur-sm text-white border-white/40 hover:bg-white/20 font-crimson text-lg"
                         >
                             View All Programs <ArrowRight size={18} />
                         </Button>
@@ -62,6 +63,5 @@ const ProgramsPreview = () => {
         </section>
     );
 };
-
 
 export default ProgramsPreview;

@@ -42,7 +42,6 @@ const ProgramDetails = () => {
         const targetVideos = `/courses/${courseCode}/videos`;
         const currentPage = `/programs/${id}`;
 
-        // If not logged in, redirect to login and pass return location
         if (!user) {
             navigate('/login', { state: { from: currentPage } });
             return;
@@ -55,18 +54,15 @@ const ProgramDetails = () => {
             if (userSnap.exists()) {
                 const existingCourses = userSnap.data().enrolledCourses || [];
 
-                // Prevent duplicate enrollment (use course code)
                 if (!existingCourses.includes(courseCode)) {
                     await updateDoc(userRef, {
                         enrolledCourses: arrayUnion(courseCode),
                     });
                 }
             } else {
-                // If user doc doesn't exist, create minimal record
                 await setDoc(userRef, { enrolledCourses: [courseCode] }, { merge: true });
             }
 
-            // After enrollment go to course videos
             navigate(targetVideos);
 
         } catch (err) {
@@ -75,33 +71,43 @@ const ProgramDetails = () => {
     };
 
     return (
-        <div className="pt-24 pb-20 bg-slate-50 min-h-screen">
-            <div className="container mx-auto px-4">
+        <div className="relative min-h-screen pt-24 pb-20 overflow-hidden">
+
+            {/* 🔵 Background Image */}
+            <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{ backgroundImage: "url('/discuss_room1.jpeg')" }}
+            ></div>
+
+            {/* Dark Overlay */}
+            <div className="absolute inset-0 bg-black/60"></div>
+
+            {/* Content */}
+            <div className="relative z-10 container mx-auto px-4">
 
                 <Link
                     to="/programs"
-                    className="inline-flex items-center gap-2 text-gray-500 hover:text-blue-900 mb-8 transition-colors"
+                    className="inline-flex items-center gap-2 text-white hover:text-blue-300 mb-8 transition-colors"
                 >
                     <ArrowLeft size={20} /> Back to Programs
                 </Link>
 
-                <div className="bg-blue-50 rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+                <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl overflow-hidden border border-gray-200">
 
                     {/* HEADER */}
-<div className="bg-blue-950 p-8 md:p-12">
-    <span className="inline-block py-1 px-3 rounded-md bg-white/20 text-sm font-semibold mb-4 backdrop-blur-sm text-blue-200">
-        {program.category}
-    </span>
+                    <div className="bg-blue-950 p-8 md:p-12">
+                        <span className="inline-block py-1 px-3 rounded-md bg-white/20 text-sm font-semibold mb-4 backdrop-blur-sm text-blue-200">
+                            {program.category}
+                        </span>
 
-    <h1 className="text-3xl md:text-5xl font-bold mb-4 text-blue-200">
-        {program.title}
-    </h1>
+                        <h1 className="text-3xl md:text-5xl font-bold mb-4 text-blue-200">
+                            {program.title}
+                        </h1>
 
-    <p className="text-lg text-blue-200 max-w-3xl">
-        {program.description}
-    </p>
-</div>
-
+                        <p className="text-lg text-blue-200 max-w-3xl">
+                            {program.description}
+                        </p>
+                    </div>
 
                     <div className="p-8 md:p-12 grid grid-cols-1 lg:grid-cols-3 gap-12">
 
@@ -149,7 +155,7 @@ const ProgramDetails = () => {
                         </div>
 
                         {/* RIGHT SIDE */}
-                        <div className="bg-white p-6 rounded-xl border border-blue-200 h-fit shadow-sm">
+                        <div className="bg-blue-50 p-6 rounded-xl border border-blue-200 h-fit shadow-md">
 
                             <h4 className="font-bold text-lg mb-4 text-blue-900">
                                 Program Details

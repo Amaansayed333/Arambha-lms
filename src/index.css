@@ -34,3 +34,34 @@
 .clip-diagonal {
   clip-path: polygon(0 0, 55% 0, 45% 100%, 0% 100%);
 }
+
+@keyframes skyMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-sky {
+  background: linear-gradient(
+    -45deg,
+    #3a67af,
+    #3a67af,
+    #618cc1,
+    #3a67af,
+    #3a67af
+  );
+  background-size: 400% 400%;
+  animation: skyMove 15s ease infinite;
+}
+
+.gold-outline {
+  color: #111827; /* inner text color (slate-900) */
+  -webkit-text-stroke: 1.5px #d4af37; /* gold border */
+}
+

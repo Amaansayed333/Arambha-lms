@@ -17,7 +17,8 @@ const Navbar = () => {
     { name: 'About', path: '/about' },
     { name: 'Programs', path: '/programs' },
     { name: 'Services', path: '/services' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'Careers', path: '/careers' },
+
   ];
 
   return (
@@ -74,16 +75,16 @@ const Navbar = () => {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-  <Link
-    key={link.name}
-    to={link.path}
-    className="relative text-gray-700 font-medium transition-colors hover:text-primary group"
-  >
-    {link.name}
+              <Link
+                key={link.name}
+                to={link.path}
+                className="relative text-gray-700 font-medium transition-colors hover:text-primary group"
+              >
+                {link.name}
 
-    {/* Animated Underline */}
-    <span
-      className="
+                {/* Animated Underline */}
+                <span
+                  className="
         absolute
         left-0
         -bottom-1
@@ -94,9 +95,9 @@ const Navbar = () => {
         duration-300
         group-hover:w-full
       "
-    ></span>
-  </Link>
-))}
+                ></span>
+              </Link>
+            ))}
 
             {/* <Link to="/admin">
               <button className="text-gray-700 hover:text-primary font-medium transition-colors mr-4">
@@ -174,7 +175,7 @@ const Navbar = () => {
               ))}
               {user ? (
                 <button
-                  onClick={async () => { setIsOpen(false); try { await signOut(); navigate('/login'); } catch(err){ console.error(err); } }}
+                  onClick={async () => { setIsOpen(false); try { await signOut(); navigate('/login'); } catch (err) { console.error(err); } }}
                   className="w-full mt-4 bg-red-500 text-white px-5 py-3 rounded-md font-medium shadow-sm"
                 >
                   Logout

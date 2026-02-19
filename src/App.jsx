@@ -8,7 +8,8 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Programs from './pages/Programs';
 import Services from './pages/Services';
-import Contact from './pages/Contact';
+import Careers from './pages/Careers';
+
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
@@ -33,11 +34,14 @@ function ScrollToTop() {
   return null;
 }
 
+import ContactPopup from './components/ContactPopup';
+
 function App() {
   return (
     <AuthProvider>
       <Router>
         <ScrollToTop />
+
 
         <div className="flex flex-col min-h-screen">
           <Navbar />
@@ -50,7 +54,8 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/programs" element={<Programs />} />
               <Route path="/services" element={<Services />} />
-              <Route path="/contact" element={<Contact />} />
+              <Route path="/careers" element={<Careers />} />
+
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/programs/:id" element={<ProgramDetails />} />
@@ -80,6 +85,7 @@ function App() {
             </Routes>
           </main>
 
+          <ContactPopup />
           <Footer />
         </div>
 
@@ -89,4 +95,3 @@ function App() {
 }
 
 export default App;
-

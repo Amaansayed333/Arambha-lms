@@ -11,12 +11,13 @@ const AboutPreview = () => {
 
             {/* IMAGE SIDE */}
             <div className="w-full lg:w-1/2 relative">
-                <div className="relative rounded-2xl overflow-hidden shadow-xl">
+                <div className="relative rounded-2xl overflow-hidden shadow-xl mt-[20px]">
                     <img
-                        src="/course_track.png"
-                        alt="Team meeting"
-                        className="w-full h-full object-cover"
-                    />
+    src="/course_track.png"
+    alt="Team meeting"
+    className="w-full h-full object-cover scale-110 top-[20px] relative"
+ />
+
                 </div>
 
                 {/* Blue Glow Instead of Secondary */}

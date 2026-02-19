@@ -8,12 +8,12 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#0A192F', // Deep Navy
+          DEFAULT: '#0A192F',
           light: '#112240',
           dark: '#020c1b',
         },
         secondary: {
-          DEFAULT: '#D4AF37', // Gold
+          DEFAULT: '#D4AF37',
           light: '#E5C158',
           dark: '#B89628',
         },
@@ -31,15 +31,16 @@ export default {
           900: '#080830',
         },
         dark: {
-            DEFAULT: '#0A192F',
-            900: '#020c1b',
-            800: '#0A192F',
-            700: '#112240',
+          DEFAULT: '#0A192F',
+          900: '#020c1b',
+          800: '#0A192F',
+          700: '#112240',
         }
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
         heading: ['Poppins', 'sans-serif'],
+        crimson: ['"Crimson Text"', 'serif'],
       },
       container: {
         center: true,
@@ -51,6 +52,15 @@ export default {
           xl: '1280px',
           '2xl': '1400px',
         },
+      },
+      keyframes: {
+        'marquee-ltr': {
+          '0%': { transform: 'translateX(-50%)' },
+          '100%': { transform: 'translateX(0%)' },
+        },
+      },
+      animation: {
+        'marquee-ltr': 'marquee-ltr 28s linear infinite',
       },
     },
   },

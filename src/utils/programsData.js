@@ -76,38 +76,38 @@ export const programs = [
 
   {
     id: 2,
-    title: "Foundation 60",
-    category: "Schooling",
+    title: "Arambha Campus to Corporate Program",
+    category: "Job Ready",
     description:
-      "A comprehensive 60-day program covering Communication, Soft Skills, Spoken English, and Computer Basics.",
-    tags: ["Soft Skills", "English", "Computers"],
-    duration: "60 Days",
-    level: "Beginner",
+      "Intensive preparation program with mock interviews, resume building, and aptitude training.",
+    tags: ["Interview Prep", "Aptitude", "Resume"],
+    duration: "45 Days",
+    level: "All Levels",
     modules: [
       {
-        title: "Communication Skills",
+        title: "Resume Building",
         description:
-          "Develop strong verbal and non-verbal communication through role plays and real-life scenarios. Learn voice modulation, active listening, and presentation techniques."
+          "Create professional ATS-friendly resumes."
       },
       {
-        title: "Spoken English",
+        title: "Aptitude Training",
         description:
-          "Improve grammar, vocabulary, and pronunciation with guided speaking practice and situational dialogues."
+          "Strengthen logical and quantitative reasoning."
       },
       {
-        title: "Soft Skills Development",
+        title: "Interview Skills",
         description:
-          "Enhance teamwork, leadership, emotional intelligence, and time management skills essential for personal and career growth."
+          "Prepare for HR and technical interviews."
       },
       {
-        title: "Computer Fundamentals",
+        title: "Group Discussions",
         description:
-          "Gain hands-on experience with MS Office tools, email communication, and essential digital productivity skills."
+          "Improve leadership and communication skills."
       },
       {
-        title: "Practical Projects",
+        title: "Mock Interviews",
         description:
-          "Apply learning through mini-projects, presentations, and group discussions to build confidence and practical exposure."
+          "Participate in simulated interview sessions."
       }
     ]
   },
@@ -340,43 +340,46 @@ export const programs = [
     ]
   },
 
+  
   {
     id: 9,
-    title: "Job Ready Bootcamp",
-    category: "Job Ready",
+    title: "Foundation 60",
+    category: "Schooling",
     description:
-      "Intensive preparation program with mock interviews, resume building, and aptitude training.",
-    tags: ["Interview Prep", "Aptitude", "Resume"],
-    duration: "45 Days",
-    level: "All Levels",
+      "A comprehensive 60-day program covering Communication, Soft Skills, Spoken English, and Computer Basics.",
+    tags: ["Soft Skills", "English", "Computers"],
+    duration: "60 Days",
+    level: "Beginner",
     modules: [
       {
-        title: "Resume Building",
+        title: "Communication Skills",
         description:
-          "Create professional ATS-friendly resumes."
+          "Develop strong verbal and non-verbal communication through role plays and real-life scenarios. Learn voice modulation, active listening, and presentation techniques."
       },
       {
-        title: "Aptitude Training",
+        title: "Spoken English",
         description:
-          "Strengthen logical and quantitative reasoning."
+          "Improve grammar, vocabulary, and pronunciation with guided speaking practice and situational dialogues."
       },
       {
-        title: "Interview Skills",
+        title: "Soft Skills Development",
         description:
-          "Prepare for HR and technical interviews."
+          "Enhance teamwork, leadership, emotional intelligence, and time management skills essential for personal and career growth."
       },
       {
-        title: "Group Discussions",
+        title: "Computer Fundamentals",
         description:
-          "Improve leadership and communication skills."
+          "Gain hands-on experience with MS Office tools, email communication, and essential digital productivity skills."
       },
       {
-        title: "Mock Interviews",
+        title: "Practical Projects",
         description:
-          "Participate in simulated interview sessions."
+          "Apply learning through mini-projects, presentations, and group discussions to build confidence and practical exposure."
       }
     ]
-  }
+  },
+
+  
 ];
 
 export const categories = [
