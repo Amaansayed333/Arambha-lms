@@ -73,30 +73,35 @@ const ContactPopup = () => {
 
                                 {/* Contact Info Section */}
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                                    <div className="flex flex-col items-center text-center p-5 bg-blue-50 rounded-xl">
-                                        <MapPin className="text-blue-600 mb-3" size={24} />
-                                        <p className="text-sm font-semibold text-blue-900">
-                                            123 Skill Street
-                                        </p>
-                                        <p className="text-sm text-blue-800">
-                                            Tech Park
-                                        </p>
-                                    </div>
+    
+    {/* Address Card */}
+    <div className="flex flex-col items-center text-center p-5 bg-blue-50 rounded-xl border-2 border-blue-800 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+        <MapPin className="text-blue-700 mb-3" size={24} />
+        <p className="text-sm font-semibold text-blue-900">
+            123 Skill Street
+        </p>
+        <p className="text-sm text-blue-800">
+            Tech Park
+        </p>
+    </div>
 
-                                    <div className="flex flex-col items-center text-center p-5 bg-blue-50 rounded-xl">
-                                        <Mail className="text-blue-600 mb-3" size={24} />
-                                        <p className="text-sm font-semibold text-blue-900 break-words">
-                                            arambhaskilldesignsolutions@gmail.com
-                                        </p>
-                                    </div>
+    {/* Email Card */}
+    <div className="flex flex-col items-center text-[12px] text-center p-5 bg-blue-50 rounded-xl border-2 border-blue-800 min-w-0 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+        <Mail className="text-blue-700 mb-3" size={24} />
+        <p className="text-[13px] font-semibold text-blue-900 break-all leading-relaxed">
+            arambhaskilldesignsolutions@gmail.com
+        </p>
+    </div>
 
-                                    <div className="flex flex-col items-center text-center p-5 bg-blue-50 rounded-xl">
-                                        <Phone className="text-blue-600 mb-3" size={24} />
-                                        <p className="text-sm font-semibold text-blue-900">
-                                            +91 9108032103
-                                        </p>
-                                    </div>
-                                </div>
+    {/* Phone Card */}
+    <div className="flex flex-col items-center text-center p-5 bg-blue-50 rounded-xl border-2 border-blue-800 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+        <Phone className="text-blue-700 mb-3" size={24} />
+        <p className="text-sm font-semibold text-blue-900">
+            +91 9108032103
+        </p>
+    </div>
+
+</div>
 
                                 {/* Form */}
                                 <form className="space-y-6">
