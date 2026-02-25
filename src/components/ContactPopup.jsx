@@ -93,11 +93,11 @@ const ContactPopup = () => {
                                     </div>
                                     <div className="flex flex-col items-center text-center p-3 bg-blue-50 rounded-lg">
                                         <Mail className="text-blue-600 mb-2" size={20} />
-                                        <p className="text-xs text-blue-900 font-medium">admissions@arambha.com</p>
+                                        <p className="text-xs text-blue-900 font-medium">arambhaskilldesignsolutions@gmail.com</p>
                                     </div>
                                     <div className="flex flex-col items-center text-center p-3 bg-blue-50 rounded-lg">
                                         <Phone className="text-blue-600 mb-2" size={20} />
-                                        <p className="text-xs text-blue-900 font-medium">+91 98765 43210</p>
+                                        <p className="text-xs text-blue-900 font-medium">+91 9108032103</p>
                                     </div>
                                 </div>
 
