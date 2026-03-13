@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 import { useAuth } from '../context/AuthContext';
+import dashboardBack from '/dashboard_back2.png';
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -69,7 +70,12 @@ const Dashboard = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-blue-300 via-blue-200 to-blue-300 py-16 px-4">
+        <div
+    className="min-h-screen py-16 px-4 bg-cover bg-center bg-no-repeat relative"
+    style={{
+        backgroundImage: `url(${dashboardBack})`
+    }}
+>
 
             <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-2xl border-2 border-blue-950 p-8">
 
