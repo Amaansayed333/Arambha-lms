@@ -99,6 +99,29 @@ const Navbar = () => {
               </Link>
             ))}
 
+            {user && (
+              <Link
+                to="/dashboard"
+                className="relative text-gray-700 font-medium transition-colors hover:text-primary group"
+              >
+                Dashboard
+
+                <span
+                  className="
+        absolute
+        left-0
+        -bottom-1
+        w-0
+        h-[2px]
+        bg-blue-800
+        transition-all
+        duration-300
+        group-hover:w-full
+      "
+                ></span>
+              </Link>
+            )}
+
             {/* <Link to="/admin">
               <button className="text-gray-700 hover:text-primary font-medium transition-colors mr-4">
                 Admin
@@ -173,6 +196,15 @@ const Navbar = () => {
                   {link.name}
                 </Link>
               ))}
+              {user && (
+                <Link
+                  to="/dashboard"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-3 py-2 text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md"
+                >
+                  Dashboard
+                </Link>
+              )}
               {user ? (
                 <button
                   onClick={async () => { setIsOpen(false); try { await signOut(); navigate('/login'); } catch (err) { console.error(err); } }}

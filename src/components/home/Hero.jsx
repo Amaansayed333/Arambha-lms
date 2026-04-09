@@ -49,8 +49,7 @@ const Hero = () => {
                     </h1>
 
                     <p className="mt-6 text-lg lg:text-2xl text-white max-w-2xl mx-auto font-crimson font-semibold tracking-wide bg-gray-200/20 backdrop-blur-sm px-6 py-4 rounded-xl">
-    Learn Spoken English for work, interviews, and everyday life —
-    with daily speaking practice in a Kannada-friendly environment.
+    Enhance your English communication skills for work, interviews, and everyday interactions through structured daily speaking practice in a mother tongue-friendly environment—designed to build your confidence progressively and help you achieve fluency with ease.
 </p>
 
 

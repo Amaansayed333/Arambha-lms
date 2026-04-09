@@ -7,7 +7,7 @@ export const programs = [
       "A structured Spoken English program designed to build fluency, confidence, pronunciation, and real-world communication skills.",
     tags: ["Spoken English", "Communication", "Fluency"],
     duration: "60 Days",
-    level: "Beginner",
+    level: "Advanced",
     modules: [
       {
         title: "Foundation of Spoken English",
@@ -233,7 +233,7 @@ export const programs = [
     description:
       "Comprehensive training in Tally, GST, Advanced Excel, and Banking operations.",
     tags: ["Tally", "GST", "Excel", "Finance"],
-    duration: "4 Months",
+    duration: "3 Months",
     level: "Intermediate",
     modules: [
       {
@@ -272,7 +272,7 @@ export const programs = [
       "Master SEO, SEM, Social Media, and Content Marketing.",
     tags: ["SEO", "Social Media", "Ads"],
     duration: "3 Months",
-    level: "Beginner",
+    level: "Intermediate",
     modules: [
       {
         title: "SEO Fundamentals",

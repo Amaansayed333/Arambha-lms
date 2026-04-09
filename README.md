@@ -197,3 +197,81 @@ The React Compiler is not enabled on this template because of its impact on dev 
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+
+
+------------------------------------------
+-----------------------------------------
+
+I'll scan the repo for key frontend, backend, and integration files, then summarize architecture and notable behaviors.
+
+Search complete: Repo-wide scan to gather files and code snippets for a high-level summary.
+
+Searched for files matching `**/package.json`, 1 match
+
+Read [](file:///c%3A/Users/amaan/Desktop/ARAMBHA_LMS_1/package.json)
+
+Searched for files matching `**/requirements*.txt`, no matches
+
+Searched for regex `firebase|CourseVideos|ProgramDetails|Signup|Course Videos|Program Details|signup|CourseVideos.jsx|ProgramDetails.jsx|Signup.jsx`, 100 results
+
+Starting: *Test in browser (mark video completed -> Firestore updated)* (2/4)
+
+Read [](file:///c%3A/Users/amaan/Desktop/ARAMBHA_LMS_1/backend/config/settings.py)
+
+Read [](file:///c%3A/Users/amaan/Desktop/ARAMBHA_LMS_1/backend/videos/models.py)
+
+Read [](file:///c%3A/Users/amaan/Desktop/ARAMBHA_LMS_1/backend/videos/utils_certificate.py)
+
+Read [](file:///c%3A/Users/amaan/Desktop/ARAMBHA_LMS_1/src/firebase/firebase.js)
+
+Read [](file:///c%3A/Users/amaan/Desktop/ARAMBHA_LMS_1/src/pages/ProgramDetails.jsx)
+
+Read [](file:///c%3A/Users/amaan/Desktop/ARAMBHA_LMS_1/src/pages/Signup.jsx)
+
+Completed: *Create repo summary* (4/4)
+
+Quick repo summary — what I read and key findings:
+
+- Frontend (React + Firebase)
+  - CourseVideos.jsx — loads course videos, marks video complete, calls backend `/video-complete/` and `/course-complete/<user_uid>/<courseCode>/`, updates Firestore `users/<uid>.completedCourses` with `arrayUnion`, and opens certificate URL when course completes. CourseVideos.jsx
+  - AuthContext.jsx — Firebase auth provider, exposes `user` and `loading`. AuthContext.jsx
+  - firebase.js — Firebase config and exports `auth` and `db`. firebase.js
+  - ProgramDetails.jsx — enrollment logic: updates Firestore `users/<uid>.enrolledCourses` with `arrayUnion`. ProgramDetails.jsx
+  - Signup.jsx — creates Firebase auth user and writes a Firestore `users/<uid>` doc with `firstName`, `lastName`, `email`, `role`, `enrolledCourses`. Signup.jsx
+  - Frontend uses hardcoded backend base URLs (`http://127.0.0.1:8000`) and opens certificate in new tab to trigger download.
+
+- Backend (Django)
+  - models.py — `Video` and `VideoProgress` models. `VideoProgress` links to Django `User`. models.py
+  - views.py — APIs:
+    - `upload_video`, `list_videos_by_course`, `mark_video_complete` (accepts `user_id`/`user_uid`/`user_email`), `check_course_completion` (accepts `user_identifier`), `generate_certificate_view` (accepts `user_identifier`). Certificate is generated via `reportlab` and returned as `FileResponse`. views.py
+  - utils_certificate.py — builds a simple PDF certificate using the provided name and course; saved to `MEDIA_ROOT`. utils_certificate.py
+  - settings.py — SQLite DB, `COURSE_FOLDER_MAP` from env, CORS allowed all origins, includes `corsheaders`. settings.py
+  - URLs: urls.py exposes the API paths under `/api/videos/`.
+
+- Integrations
+  - Firebase Firestore: frontend stores user documents in `users` collection with `enrolledCourses` and (now) `completedCourses`.
+  - Google Drive: backend uploads videos to Google Drive (Drive API) and stores `drive_file_id` in `Video`.
+  - ReportLab: backend generates PDF certificates in `MEDIA_ROOT`.
+
+- Recent changes I made
+  - Frontend: Firestore update on course completion, send `user_uid` instead of hardcoded `1`, placeholder window to avoid popup-blocking during certificate download.
+  - Backend: accept string `user_identifier` (uid/email/PK), resolve `User`, use first name for certificate, improved error handling and fixed syntax errors.
+
+- Notable concerns & next actions (high priority)
+  - User sync mismatch: frontend uses Firebase Auth users and writes Firestore docs, but Django `User` table is not automatically populated. Backend resolves users via `username==firebaseUid` or `email`. Unless you create Django `User` records (or set `username` to the Firebase UID), `mark_video_complete` and certificate generation will fail to find a `User`. Options:
+    - Create a lightweight sync endpoint to create/update a Django `User` when a user signs up (call it from frontend Signup).
+    - Or change backend to avoid requiring Django `User` for progress storage (store progress keyed by Firebase UID instead).
+  - Authentication & security: APIs are currently unauthenticated and use client-sent identifiers. Consider verifying Firebase ID tokens in backend for secure operations.
+  - File permissions & cleanup: `generate_certificate` writes to `MEDIA_ROOT` — ensure the directory exists and old PDFs are cleaned up periodically.
+  - Hardcoded localhost URLs: replace with env-based base URL or proxy via Vite for consistency across environments.
+  - Filename safety: certificate filename uses raw username; sanitize to avoid unsafe filesystem names.
+  - Tests: run full flow (signup → enroll → watch/mark all videos → certificate). I left the `Test in browser` todo in progress.
+
+If you want, I can:
+- Add a backend endpoint to create/sync a Django `User` from Firebase UID + email (recommended), and call it from Signup.jsx.
+- Implement Firebase ID token verification in Django before accepting `video-complete` and `generate-certificate`.
+- Replace hardcoded API base URLs with a single configurable variable.
+
+Which of the above next actions should I do first?
+
