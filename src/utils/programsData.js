@@ -36,43 +36,6 @@ export const programs = [
       }
     ]
   },
-  {
-    id: 5,
-    title: "AutoCAD Design",
-    category: "BTech",
-    description:
-      "Professional AutoCAD training for Civil and Mechanical students.",
-    tags: ["AutoCAD", "Design", "Engineering"],
-    duration: "3 Months",
-    level: "Intermediate",
-    modules: [
-      {
-        title: "AutoCAD Basics",
-        description:
-          "Learn tools, commands, and drafting fundamentals."
-      },
-      {
-        title: "2D Drafting",
-        description:
-          "Create technical drawings, layouts, and floor plans."
-      },
-      {
-        title: "3D Modeling",
-        description:
-          "Build 3D models and render engineering designs."
-      },
-      {
-        title: "Blueprint Reading",
-        description:
-          "Interpret engineering blueprints and technical drawings."
-      },
-      {
-        title: "Design Project",
-        description:
-          "Complete a real-world engineering design project."
-      }
-    ]
-  },
 
   {
     id: 2,
