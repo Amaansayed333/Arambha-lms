@@ -1,173 +1,308 @@
-import React from 'react';
-import { Award, Users, Laptop, Briefcase, Lock, BarChart } from 'lucide-react';
-import { motion } from 'framer-motion';
-import ServiceCarousel from '../components/ServiceCarousel.jsx';
+import React,{useRef}from "react";
 
-const techStack = [
-  { name: 'React', color: 'bg-blue-600' },
-  { name: 'Tailwind CSS', color: 'bg-cyan-500' },
-  { name: 'Django', color: 'bg-green-600' },
-  { name: 'Google Drive API', color: 'bg-yellow-500' },
+/* ================= SECTION 1 DATA ================= */
+const features = [
+  {
+    icon: "/icons/expert.png",
+    title: "Learn from Industry Experts",
+    desc: "Get trained by professionals with real-world experience.",
+  },
+  {
+    icon: "/icons/certification.png",
+    title: "Certified Programs",
+    desc: "Earn certifications that actually matter in the job market.",
+  },
+  {
+    icon: "/icons/career2.png",
+    title: "Career Support",
+    desc: "Resume building, interview prep, and placement guidance.",
+  },
+  {
+    icon: "/icons/flexible.png",
+    title: "Flexible Learning",
+    desc: "Learn at your pace with online & hybrid options.",
+  },
+  {
+    icon: "/icons/projects.jpeg",
+    title: "Live Projects",
+    desc: "Work on real-world projects to build your portfolio.",
+  },
+  {
+    icon: "/icons/community2.png",
+    title: "Growing Community",
+    desc: "Join thousands of learners building their careers.",
+  },
 ];
 
+const bulletPoints = [
+  "Industry-relevant courses designed for real-world skills",
+  "ISO & MSME-recognized certifications trusted by employers",
+  "Hands-on training with live projects and case studies",
+  "Personalized mentorship from industry experts",
+  "End-to-end placement assistance and career guidance",
+  "Resume building and LinkedIn profile optimization",
+  "Mock interviews and soft skill development sessions",
+  "Flexible learning formats – online, offline, hybrid",
+  "Regular assessments with actionable feedback",
+  "Admission support for choosing the right career path",
+];
+
+/* ================= SECTION 2 DATA ================= */
+const servicesList = [
+  {
+    img: "/icons/service1.png",
+    title: "Courses & Upskilling with Certification",
+    desc: "We offer industry-relevant courses and upskilling programs designed to enhance knowledge and employability. Learners receive recognized certifications upon successful completion.",
+  },
+  {
+    img: "/icons/service2.png",
+    title: "Manpower Solutions for Companies",
+    desc: "We provide skilled and job-ready candidates to meet the manpower requirements of various organizations across industries, ensuring the right talent for the right role.",
+  },
+  {
+    img: "/icons/service3.png",
+    title: "Admission Support for Colleges & Learners",
+    desc: "We assist students and institutions with seamless admission processes, helping learners choose the right courses and colleges for their career growth.",
+  },
+  {
+    img: "/icons/service4.png",
+    title: "Training for Skilled & Unskilled Workforce",
+    desc: "We deliver practical training programs for both skilled and unskilled individuals, focusing on job readiness, productivity, and career development.",
+  },
+  {
+    img: "/icons/service5.png",
+    title: "Placement Assistance & Career Support",
+    desc: "We support learners with placement opportunities, interview preparation, and career guidance to help them secure suitable jobs.",
+  },
+  {
+    img: "/icons/service6.png",
+    title: "Live Projects & Industry-Driven Learning",
+    desc: "Get hands-on experience by working on real-time projects under the guidance of industry experts. Build practical skills, understand real business challenges, and become job-ready with confidence.",
+  },
+];
+
+
+/* ================= SECTION 3 DATA ================= */
+const testimonials = [
+  {
+    name: "Rohan Sharma",
+    college: "Delhi University",
+    text: "The training at Arambha helped me gain real-world skills. The mentors were super supportive and guided me throughout my learning journey.",
+  },
+  {
+    name: "Priya Verma",
+    college: "Mumbai University",
+    text: "I loved the structured learning approach. The live projects gave me confidence and helped me crack my first interview.",
+  },
+  {
+    name: "Amit Patel",
+    college: "NIT Surat",
+    text: "The placement support is amazing. Resume building and mock interviews really made a difference for me.",
+  },
+  {
+    name: "Sneha Reddy",
+    college: "Osmania University",
+    text: "The flexible learning options helped me balance my college and skill development.",
+  },
+  {
+    name: "Arjun Mehta",
+    college: "BITS Pilani",
+    text: "Hands-on projects and mentorship made learning super engaging.",
+  },
+  {
+    name: "Neha Gupta",
+    college: "Amity University",
+    text: "The certification added real value to my profile.",
+  },
+  {
+    name: "Karan Singh",
+    college: "Chandigarh University",
+    text: "Great experience overall! Mentors were very helpful.",
+  },
+  {
+    name: "Anjali Nair",
+    college: "Kerala University",
+    text: "Practical assignments helped me understand concepts deeply.",
+  },
+];
+
+
+
+
 const Services = () => {
+  const sliderRef = useRef(null);
+
+  const handleMouseEnter = () => {
+    sliderRef.current.style.animationPlayState = "paused";
+  };
+
+  const handleMouseLeave = () => {
+    sliderRef.current.style.animationPlayState = "running";
+  };
   return (
-    <div className="bg-white min-h-screen font-sans text-slate-800">
-
-      {/* 1. Hero Section */}
-      <section className="relative overflow-hidden pt-32 pb-20">
-
-        {/* Background Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/services.png')" }}
-        />
-
-        {/* Smooth Fade Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-blue-50" />
-
-        {/* Decorative Orbs */}
-        <div className="absolute -top-32 -right-32 w-96 h-96 bg-blue-900/10 rounded-full blur-3xl" />
-        <div className="absolute top-1/3 -left-32 w-96 h-96 bg-blue-700/10 rounded-full blur-3xl" />
-
-        <div className="container mx-auto px-4 relative z-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <span className="inline-block py-1 px-3 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-bold uppercase tracking-widest mb-4 border border-white/30">
-              Our Services
-            </span>
-
-            <h1 className="text-4xl md:text-6xl font-heading font-extrabold text-white mb-6 leading-tight drop-shadow-lg">
-              Providing Technology Driven <br className="hidden md:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 to-cyan-200">
-                Digital Learning Solutions
-              </span>
-            </h1>
-
-            <p className="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed">
-              Empowering institutions with scalable, secure, and user-friendly tools to deliver world-class education online.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* 2. Services Carousel */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 via-blue-100 to-blue-50 pt-20 pb-24 -mt-20 z-20">
-
-  {/* Section Heading */}
-  <div className="text-center mb-16 relative z-10">
-    <h2 className="
-      inline-block
-      text-3xl md:text-5xl
-      font-heading
-      font-bold
-      text-white
-      px-8 py-3
-      border-4
-      border-blue-900
-      rounded-xl
-      bg-blue-900
-      shadow-lg
-    ">
-      Our Services
-    </h2>
-  </div>
-
-  <div className="absolute -top-32 -right-32 w-96 h-96 bg-blue-900/10 rounded-full blur-3xl" />
-  <div className="absolute top-1/3 -left-32 w-96 h-96 bg-blue-700/10 rounded-full blur-3xl" />
-
-  <div className="container mx-auto px-4 relative z-10">
-    <ServiceCarousel />
-  </div>
-
-</section>
-
-
-      {/* 3. Why Choose Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 via-blue-100 to-blue-50 pt-24 pb-24">
-        <div className="absolute -top-32 -right-32 w-96 h-96 bg-blue-900/10 rounded-full blur-3xl" />
-        <div className="absolute top-1/3 -left-32 w-96 h-96 bg-blue-700/10 rounded-full blur-3xl" />
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-heading font-bold text-slate-900 mb-6">
-              Why Choose Arambha LMS
-            </h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              We combine cutting-edge technology with educational expertise to deliver platforms that truly work.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              { icon: <Award size={32} />, title: "Industry-Relevant Curriculum", desc: "Courses designed to meet current market demands and standards." },
-              { icon: <Lock size={32} />, title: "Secure & Scalable Platform", desc: "Enterprise-grade security that grows with your institution." },
-              { icon: <Briefcase size={32} />, title: "Cloud-Based Video Delivery", desc: "Seamless streaming integrated with robust cloud infrastructure." },
-              { icon: <Users size={32} />, title: "Admin-Controlled Content", desc: "Full control over course materials, user access, and management." },
-              { icon: <Laptop size={32} />, title: "Easy Access from Anywhere", desc: "Responsive design ensures learning continues on any device." },
-              { icon: <BarChart size={32} />, title: "Performance Tracking", desc: "Real-time analytics to monitor student progress and engagement." }
-            ].map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white/80 backdrop-blur-md border border-white/50 p-8 rounded-3xl shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group"
-              >
-                <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mb-6 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
-                  {feature.icon}
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">{feature.title}</h3>
-                <p className="text-slate-600 leading-relaxed">{feature.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Tech Stack */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold text-slate-900 mb-12">
-            Powered by Modern Tech Stack
+    <>
+      {/* ================= SECTION 1 ================= */}
+      <section className="w-full px-6 md:px-16 py-16 bg-blue-100">
+        
+        <div className="mb-14 text-center max-w-3xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+            Why <span className="text-blue-600">Arambha Skills Solutions</span>?
           </h2>
-          <div className="flex flex-wrap justify-center gap-6">
-            {techStack.map((tech, i) => (
+          <p className="mt-4 text-gray-600 text-lg">
+            We don’t just teach — we help you build a career. From learning to placement, 
+            we guide you at every step with practical skills and real opportunities.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {features.map((item, index) => (
               <div
-                key={i}
-                className="px-6 py-3 rounded-full bg-slate-100 text-slate-700 font-medium flex items-center gap-3 hover:bg-white hover:shadow-lg hover:text-blue-600 transition-all border border-transparent hover:border-slate-100"
+                key={index}
+                className="bg-white rounded-2xl shadow-sm p-5 flex items-start gap-4 
+                hover:shadow-md transition border border-blue-600"
               >
-                <span className={`w-3 h-3 rounded-full ${tech.color}`} />
-                {tech.name}
+                <img
+                  src={item.icon}
+                  alt={item.title}
+                  className="w-20 h-20 object-contain"
+                />
+                <div>
+                  <h4 className="font-semibold text-lg text-gray-800">
+                    {item.title}
+                  </h4>
+                  <p className="text-gray-500 text-sm mt-1">{item.desc}</p>
+                </div>
               </div>
             ))}
           </div>
+
+          <div className="bg-white rounded-2xl shadow-sm p-6 border border-blue-600">
+            <ul className="space-y-4">
+              {bulletPoints.map((point, index) => (
+                <li key={index} className="flex items-start gap-3">
+                  <span className="text-blue-600 text-xl">•</span>
+                  <p className="text-gray-700">{point}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
-      {/* 5. CTA */}
-      <section className="py-24 bg-slate-900 relative overflow-hidden text-center">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl opacity-50" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-cyan-600/20 rounded-full blur-3xl opacity-50" />
-
-        <div className="container mx-auto px-4 relative z-10">
-          <h2 className="text-3xl md:text-5xl font-heading font-bold text-white mb-6">
-            Need a scalable LMS solution?
+      {/* ================= SECTION 2 ================= */}
+      <section className="w-full px-6 md:px-16 py-16 bg-white">
+        
+        {/* Heading */}
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+            Our <span className="text-blue-600">Services</span>
           </h2>
-          <p className="text-blue-100 text-lg mb-10 max-w-2xl mx-auto">
-            Get in touch with us to discuss how Arambha can transform your educational delivery.
+          <p className="mt-4 text-gray-600 text-lg max-w-2xl mx-auto">
+            Explore the range of solutions we offer to help you grow, learn, and succeed in your career journey.
           </p>
-          <button className="bg-white text-blue-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-blue-50 transition shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-            Contact Us Today
-          </button>
         </div>
+
+        {/* Cards */}
+        <div className="space-y-10">
+          {servicesList.map((service, index) => (
+            <div
+              key={index}
+              className={`flex flex-col md:flex-row items-center gap-10 bg-blue-200 rounded-2xl p-8 shadow-sm border border-blue-400`}
+            >
+              
+              {/* TEXT */}
+              <div className="flex-1">
+                <h3 className="text-2xl font-semibold text-gray-900">
+                  {service.title}
+                </h3>
+                <p className="mt-4 text-gray-600 leading-relaxed">
+                  {service.desc}
+                </p>
+              </div>
+
+              {/* IMAGE */}
+              <div className="flex-1 flex justify-center rounded-[25px]">
+                <img
+                  src={service.img}
+                  alt={service.title}
+                  className="w-66 h-64 object-contain"
+                />
+              </div>
+
+            </div>
+          ))}
+        </div>
+
       </section>
 
+     
+      {/* ================= SECTION 3 ================= */}
+<section className="w-full py-16 bg-blue-100 overflow-hidden">
+  
+  {/* Heading */}
+  <div className="text-center mb-12 px-6">
+    <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+      What Our <span className="text-blue-600">Learners Say</span>
+    </h2>
+    <p className="mt-4 text-gray-600 text-lg">
+      Real experiences from students who transformed their careers with us.
+    </p>
+  </div>
+
+  {/* Slider */}
+  <div
+    className="relative w-full overflow-hidden"
+    onMouseEnter={handleMouseEnter}
+    onMouseLeave={handleMouseLeave}
+  >
+    <div
+      ref={sliderRef}
+      className="flex gap-6 animate-scroll px-6"
+    >
+      {[...testimonials, ...testimonials].map((item, index) => (
+        <div
+          key={index}
+          className="min-w-[300px] max-w-[300px] bg-white rounded-2xl shadow-md p-6 border border-blue-200"
+        >
+          <p className="text-gray-600 text-sm leading-relaxed">
+            “{item.text}”
+          </p>
+
+          <div className="mt-4">
+            <h4 className="font-semibold text-gray-900">
+              {item.name}
+            </h4>
+            <p className="text-sm text-gray-500">
+              {item.college}
+            </p>
+          </div>
+        </div>
+      ))}
     </div>
+  </div>
+
+  {/* Animation */}
+  <style>
+    {`
+      @keyframes scroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      .animate-scroll {
+        animation: scroll 13s linear infinite;
+      }
+    `}
+  </style>
+
+</section>
+    </>
   );
 };
 
